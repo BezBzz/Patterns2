@@ -17,7 +17,7 @@ public class Test {
     }
 
     @org.junit.jupiter.api.Test
-    public void TestUserActive() {
+    public void testUserActive() {
         UserData userActive = UserGenerator.generateUser("active");
         UserRegistration.registration(userActive);
         form.$x(".//span[@data-test-id='login']//input").val(userActive.getLogin());
@@ -27,7 +27,7 @@ public class Test {
     }
 
     @org.junit.jupiter.api.Test
-    void TestUserBlocked() {
+    void testUserBlocked() {
         UserData userBlocked = UserGenerator.generateUser("blocked");
         UserRegistration.registration(userBlocked);
         form.$x(".//span[@data-test-id='login']//input").val(userBlocked.getLogin());
@@ -37,5 +37,25 @@ public class Test {
         error.$x(".//div[@class='notification__content']").should(text("Пользователь заблокирован"));
         error.$x(".//button").click();
         error.should(hidden);
+    }
+
+    @org.junit.jupiter.api.Test
+    public void validUserWithFnInvalidPassword() {
+        UserData userActive = UserGenerator.generateUser("active");
+        UserRegistration.registration(userActive);
+        form.$x(".//span[@data-test-id='login']//input").val(userActive.getLogin());
+        form.$x(".//span[@data-test-id='password']//input").val("Pass");
+        form.$x(".//button").click();
+        $x(".//h2").should(text("Личный кабинет"));
+    }
+
+    @org.junit.jupiter.api.Test
+    public void validUserWithFnInvalidLogin() {
+        UserData userActive = UserGenerator.generateUser("active");
+        UserRegistration.registration(userActive);
+        form.$x(".//span[@data-test-id='login']//input").val("Login");
+        form.$x(".//span[@data-test-id='password']//input").val(userActive.getPassword());
+        form.$x(".//button").click();
+        $x(".//h2").should(text("Личный кабинет"));
     }
 }
