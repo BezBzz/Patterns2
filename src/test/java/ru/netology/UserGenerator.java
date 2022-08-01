@@ -7,7 +7,7 @@ public class UserGenerator {
         return new UserData(generateLogin(), generatePassword(), status);
     }
 
-    private static String generatePassword() {
+    public static String generatePassword() {
         Faker faker = new Faker();
         return faker.internet().password();
     }

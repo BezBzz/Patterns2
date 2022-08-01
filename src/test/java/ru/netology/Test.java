@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
+import static ru.netology.UserGenerator.generateLogin;
+import static ru.netology.UserGenerator.generatePassword;
 
 public class Test {
     SelenideElement form = $x(".//form");
@@ -44,18 +46,18 @@ public class Test {
         UserData userActive = UserGenerator.generateUser("active");
         UserRegistration.registration(userActive);
         form.$x(".//span[@data-test-id='login']//input").val(userActive.getLogin());
-        form.$x(".//span[@data-test-id='password']//input").val("Pass");
+        form.$x(".//span[@data-test-id='password']//input").val(generatePassword());
         form.$x(".//button").click();
-        $x(".//h2").should(text("Личный кабинет"));
+        $x(".//h2").should(text("Ошибка! Неверно указан логин или пароль"));
     }
 
     @org.junit.jupiter.api.Test
     public void validUserWithFnInvalidLogin() {
         UserData userActive = UserGenerator.generateUser("active");
         UserRegistration.registration(userActive);
-        form.$x(".//span[@data-test-id='login']//input").val("Login");
+        form.$x(".//span[@data-test-id='login']//input").val(generateLogin());;
         form.$x(".//span[@data-test-id='password']//input").val(userActive.getPassword());
         form.$x(".//button").click();
-        $x(".//h2").should(text("Личный кабинет"));
+        $x(".//h2").should(text("Ошибка! Неверно указан логин или пароль"));
     }
 }
