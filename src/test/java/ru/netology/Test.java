@@ -48,7 +48,7 @@ public class Test {
         form.$x(".//span[@data-test-id='login']//input").val(userActive.getLogin());
         form.$x(".//span[@data-test-id='password']//input").val(generatePassword());
         form.$x(".//button").click();
-        $x(".//h2").should(text("Ошибка! Неверно указан логин или пароль"));
+        error.$x(".//div[@class='notification__content']").should(text("Ошибка! Неверно указан логин или пароль"));
     }
 
     @org.junit.jupiter.api.Test
@@ -58,6 +58,6 @@ public class Test {
         form.$x(".//span[@data-test-id='login']//input").val(generateLogin());;
         form.$x(".//span[@data-test-id='password']//input").val(userActive.getPassword());
         form.$x(".//button").click();
-        $x(".//h2").should(text("Ошибка! Неверно указан логин или пароль"));
+        error.$x(".//div[@class='notification__content']").should(text("Ошибка! Неверно указан логин или пароль"));
     }
 }
